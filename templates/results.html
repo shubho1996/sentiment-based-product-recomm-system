@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+	<header>
+		<div class="container">
+		<div id="brandname">
+			Machine Learning App with Flask
+		</div>
+		<h2>Sentiment Based Product Recommendation System</h2>
+		
+	</div>
+	</header>
+	<p style="color:blue;font-size:20;text-align: center;"><b>Recommended Items</b></p>
+	<!-- <div class="results"> -->
+
+
+		
+	<!-- {% if prediction == "positive"%}
+	<h2 style="color:red;">Positive Movie Review</h2>
+	{% elif prediction == "negative"%}
+	<h2 style="color:blue;">Negative Movie Review</h2>
+	{% endif %} -->
+
+	<ol>
+		<!-- For loop logic of jinja template -->
+		{%for i in range(5)%}
+		  
+			<li>{{products[i]}}</li>
+		{%endfor%}
+		  
+	</ol>
+
+
+	<!-- </div> -->
+
+</body>
+</html>

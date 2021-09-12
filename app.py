@@ -29,15 +29,18 @@ def predict():
         username = request.form['text']
         # result = preprocess_text(username, df_reviews, sentiment_model, user_ratings, vectorizer)
         # result = preprocess_text(data)
-        product_list = preprocess_text(username)
-
-    return render_template('results.html', products = product_list)
+        product_list, is_correct_user = recommend_products(username)
+        
+        
+        return render_template('results.html', products = product_list, 
+                               is_correct_user = is_correct_user)
     
 
-def preprocess_text(username):
+def recommend_products(username):
     
     # Check whether username is proper or not
-    ##### Need to do it later #######
+    if username not in user_dict:
+        return ("", False)
     
     # get the user_id for the user name associated
     # Recommending the Top 20 products to the user.
@@ -67,8 +70,8 @@ def preprocess_text(username):
     product_positive_zip = zip(product_names, product_positive_scores)
     product_positive_zip_sorted = sorted(product_positive_zip, key=lambda x:x[1], reverse=True)
     final_product_list, _ =zip(*product_positive_zip_sorted)
-    print(username, final_product_list)
-    return final_product_list[:5]
+    # print(username, final_product_list)
+    return (final_product_list[:5],True)
 
 
 if __name__ == '__main__':

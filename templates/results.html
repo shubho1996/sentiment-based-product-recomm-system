@@ -1,42 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+	<style>
+		body {background-color: rgb(220, 224, 210);}
+		h1   {color: rgb(23, 76, 155);}
+		p    {color: rgba(46, 26, 145, 0.932);}
+		ol { display: inline-block; text-align: left; }
+	</style>
+	<title>Production Recommendation System - Recommendations</title>
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}"> -->
 </head>
-<body>
-
+<body align="center">
 	<header>
 		<div class="container">
-		<div id="brandname">
-			Machine Learning App with Flask
+		<h1>Sentiment Based Product Recommendation System</h1>
 		</div>
-		<h2>Sentiment Based Product Recommendation System</h2>
-		
-	</div>
 	</header>
-	<p style="color:blue;font-size:20;text-align: center;"><b>Recommended Items</b></p>
+	<p>
+		{%if is_correct_user == True%}
+			<b>Top 5 Recommended Items</b>
+			<ol align="center">
+				<!-- For loop logic of Flask template -->
+				{%for i in range(5)%}
+					<li>{{products[i]}}</li>
+				{%endfor%}
+			</ol>
+		{% else %}
+			<b style="color:red">Username doesn't exist</b>
+		{% endif %}
+	</p>
 	<!-- <div class="results"> -->
 
-
-		
-	<!-- {% if prediction == "positive"%}
-	<h2 style="color:red;">Positive Movie Review</h2>
-	{% elif prediction == "negative"%}
-	<h2 style="color:blue;">Negative Movie Review</h2>
-	{% endif %} -->
-
-	<ol>
-		<!-- For loop logic of jinja template -->
-		{%for i in range(5)%}
-		  
-			<li>{{products[i]}}</li>
-		{%endfor%}
-		  
-	</ol>
-
-
-	<!-- </div> -->
+	
+	<br><br>
+	<a href="javascript:history.back()">Go Back</a>
 
 </body>
 </html>

@@ -20,15 +20,18 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
+    """Renders home page of Flask app
+    """
     return render_template('home.html')
 
 
 @app.route("/predict", methods=['POST'])
 def predict():
+    """Used to predict the top 5 recommended products
+    """
     if(request.method == 'POST'):
+        # Takes the username from the request and passes it to recommend product function
         username = request.form['text']
-        # result = preprocess_text(username, df_reviews, sentiment_model, user_ratings, vectorizer)
-        # result = preprocess_text(data)
         product_list, is_correct_user = recommend_products(username)
         
         
@@ -37,7 +40,14 @@ def predict():
     
 
 def recommend_products(username):
-    
+    """This function takes username as input and gives top 5 recommend items.
+
+    Args:
+        username (text): Username of the user in dataset
+
+    Returns:
+        tuple: Product list, is username correct or not
+    """
     # Check whether username is proper or not
     if username not in user_dict:
         return ("", False)
@@ -68,9 +78,10 @@ def recommend_products(username):
         product_positive_scores.append(positive_sum/len(probs))
     
     product_positive_zip = zip(product_names, product_positive_scores)
+    
+    # Sort based on positivity rate
     product_positive_zip_sorted = sorted(product_positive_zip, key=lambda x:x[1], reverse=True)
     final_product_list, _ =zip(*product_positive_zip_sorted)
-    # print(username, final_product_list)
     return (final_product_list[:5],True)
 
 
